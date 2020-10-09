@@ -11,3 +11,108 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+#FormLogin{
+   width: 300px;
+   
+    margin-left: 5%;
+    height: 450px;
+    float: left;
+  background-color: whitesmoke;
+  margin-top: 30px;
+      border: 2px solid black;
+    border-radius: 4px;
+}
+#deleteForm{
+  position: absolute;
+	
+    top:85px;
+    right: 75.8%;
+}
+
+.table{
+  width: 60%;
+    margin-left: 10px;
+    margin-top: 20px;
+    float: left;
+      border: 2px solid black;
+}
+.trashCan{
+  width: 923px;
+   float: left;
+  margin-left: 10px;
+    margin-top: 20px;
+     border: 2px solid black;
+}
+#menu{
+    height: 100px;
+    width: 100%;
+    background-color: whitesmoke;
+    
+}
+.trashCanMenu{
+ 
+  float: left;
+  height: 100px;
+  width: 100%;
+  background-color: whitesmoke;
+}
+
+.add{
+  margin-left: 30px;
+    font-size: 20px;
+    
+}
+.open{
+   margin-left: 150px;
+    font-size: 20px;
+}
+.buttonTimkiem{
+ 
+  height: 46px;
+  width: 60px;
+  background-color: darkgrey;
+  color: white;
+}
+.timkiem{
+   margin-left: 150px;
+    width: 250px;
+    height: 40px;
+}
+.forms{
+  height: 20px;
+  width: 200px;
+}
+#submit{
+  height: 30px;
+  width: 70px;
+}
+#update{
+  height: 30px;
+  width: 70px;
+}
+.information{
+  margin-left: 15%;
+}
+.hidden{
+  font-size: 20px;
+ margin-top: 10px;
+  margin-left: 45%;
+}
+#nameMenu{
+    text-align: center;
+    font-size: 32px
+}
+#tieuDe{
+   text-align: center;
+    font-size: 32px
+}
+.deleteAll{
+  margin-left: 30px;
+}
+/* #oneLine{
+    margin-left: 10px;
+} */
+.dataLists{
+    text-align: center;
+}
+.aa{margin-left: 20%;}
