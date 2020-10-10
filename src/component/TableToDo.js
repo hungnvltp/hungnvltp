@@ -25,6 +25,7 @@ class TableToDo extends React.Component {
             return { dataTable: nextProps.dataTable };
         }
         else return null;
+        
     }
     search = (e) => {
         this.setState(
