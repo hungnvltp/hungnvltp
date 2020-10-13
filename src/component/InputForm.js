@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Form, Field } from 'react-final-form'
 class InputForm extends Component {
     constructor(props) {
         super(props);
@@ -8,45 +8,76 @@ class InputForm extends Component {
             result: "",
         }
     }
-    // componentWillReceiveProps = (nextProps) => {
-    //     this.setState({
-    //         product: nextProps.product || {},
-    //     })
-    // }
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.product !== prevState.product) {
-            return { product: nextProps.product };
-        }
-        else return null;
-    }
-    handleFormChange = (e) => {
-        let { product } = this.state;
-
-        product[e.target.name] = e.target.value;
-        this.setState({ product })
+    onSubmit = values => {
+        let { submitUpdate, index1 } = this.props;
+        console.log(index1)
+        
     }
     render() {
-
-        let { submitUpdate, index1 } = this.props
-        let product = this.state.product;
-        console.log("index", index1)
-        console.log(333333, product)
+        let { submitUpdate, index1 } = this.props;
         return (
-            <form id="FormLogin" >
-                <h1 className="aa">Form</h1>
-                <a href="!#" id="deleteForm" onClick={this.props.deteleForm}>X</a>
-                <label className="aa" for="fname">First name:</label><br></br>
-                <input className="aa" type="text" name="name" value={product.name} onChange={this.handleFormChange} /><br></br>
-                <label className="aa">Phone number</label>:<br></br>
-                <input className="aa" type="number" name="phoneNumber" value={product.phoneNumber} onChange={this.handleFormChange} /><br></br>
-                <label className="aa">Company</label><br></br>
-                <input className="aa" type="text" name="company" value={product.company} onChange={this.handleFormChange} /><br></br>
-                <label className="aa"> Position</label><br></br>
-                <input className="aa" type="text" name="positon" value={product.positon} onChange={this.handleFormChange} /><br></br>
-                <label className="aa">Age</label><br></br>
-                <input className="aa" type="number" name="age" value={product.age} onChange={this.handleFormChange} /><br></br><br></br>
-                <input className="aa" type="submit" value={(index1 || index1 === 0) ? "Upadate" : "Submit"} onClick={() => this.props.doSave(index1)} />
-            </form>);
+            <Form
+                onSubmit={this.onSubmit}
+                initialValues={{}}
+                render={({ handleSubmit, submitting, pristine, values }) => (
+                    <form onSubmit={handleSubmit}>
+                        <label id="formTitle">Form</label><br></br>
+                        <a href="!#" id="deleteForm" onClick={this.props.deteleForm}>X</a>
+
+                        <div id="firstName">
+                            <label className="textInput">First Name :</label><br></br>
+                            <Field
+                                className="textInput"
+                                name="name"
+                                component="input"
+                                type="text"
+                            />
+                        </div>
+                        <div>
+                            <label className="textInput">Phone Number :</label><br></br>
+                            <Field
+                                className="textInput"
+                                name="phoneNumber"
+                                component="input"
+                                type="text"
+                            />
+                        </div>
+                        <div>
+                            <label className="textInput">Company :</label><br></br>
+                            <Field
+                                className="textInput"
+                                name="company"
+                                component="input"
+                                type="text"
+                            />
+                        </div>
+                        <div>
+                            <label className="textInput">Position :</label><br></br>
+                            <Field
+                                className="textInput"
+                                name="positon"
+                                component="input"
+                                type="text"
+                            />
+                        </div>
+                        <div>
+                            <label className="textInput">Age :</label><br></br>
+                            <Field
+                                className="textInput"
+                                name="age"
+                                component="input"
+                                type="text"
+                            />
+                        </div>
+                        <div className="buttons">
+                            <button type="submit" disabled={submitting || pristine}>
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                )}
+            />
+        );
     }
 }
 

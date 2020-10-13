@@ -13,7 +13,6 @@ code {
 }
 #FormLogin{
    width: 300px;
-   
     margin-left: 5%;
     height: 450px;
     float: left;
@@ -115,4 +114,31 @@ code {
 .dataLists{
     text-align: center;
 }
-.aa{margin-left: 20%;}
+
+form{
+      width: 300px;
+      margin-left: 5%;
+      height: 400px;
+      float: left;
+      background-color: whitesmoke;
+      margin-top: 30px;
+      border: 2px solid black;
+      border-radius: 4px;
+}
+#formTitle{
+  margin-left: 20%;
+    font-size: 32px
+    
+}
+.textInput{
+    
+    margin-left: 20%;
+}
+.buttons{
+  margin-top: 20px;
+   margin-left: 20%;
+   
+}
+#firstName{
+   margin-top: 30px;
+}

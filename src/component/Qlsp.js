@@ -8,6 +8,9 @@ class Qlsp extends React.Component {
         super(props);
         this.state = {
             dataTable: [
+                {
+                    name: "333", company: "333", phoneNumber: "333", positon: "333", age: "333"
+                }
             ],
             dataTrashcan: [],
             dataCheckbox: [],
@@ -25,7 +28,7 @@ class Qlsp extends React.Component {
 
         }
     }
-    handleSubmit = (product) => {
+    handleSubmit = () => {
         this.setState({
             hiddenOpen: true,
             dataTable: [...this.state.dataTable, this.state.product],
@@ -36,10 +39,11 @@ class Qlsp extends React.Component {
         })
     };
     clickEdit = (index) => {
+        alert("edit")
         this.index1 = index;
         this.setState({
-            hiddenOpen: false,
-            formDangNhap: true,
+            // hiddenOpen: false,
+            // formDangNhap: true,
             product: this.state.dataTable[index],
         })
     }
@@ -165,12 +169,12 @@ class Qlsp extends React.Component {
         })
     }
     doSave = (index1) => {
+        alert(88888)
         let product = this.state.product
-        console.log(222222, index1)
         if (index1 || index1 === 0) {
             this.clickUpdate(product)
-
         } else {
+            alert(22222)
             this.handleSubmit()
 
         }
@@ -183,7 +187,7 @@ class Qlsp extends React.Component {
         return (
             <div className="App">
                 <TitleToDo />
-                {formDangNhap && <InputFrorm
+                {/* {formDangNhap && <InputFrorm
                     submit={this.handleSubmit}
                     product={product}
                     update={this.clickUpdate}
@@ -196,7 +200,12 @@ class Qlsp extends React.Component {
                     doSave={this.doSave}
                     submitUpdate={submitUpdate}
                     index1={this.index1}
-                />}
+                />} */}
+                <InputFrorm
+                    doSave={this.doSave}
+                    index1={this.index1}
+                    clickEdit={this.clickEdit}
+                />
                 <TableToDo
                     clickEdit={this.clickEdit}
                     fitterData={fitterData}
@@ -225,5 +234,3 @@ class Qlsp extends React.Component {
     }
 }
 export default Qlsp;
-
-
