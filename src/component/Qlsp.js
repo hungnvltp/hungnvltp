@@ -171,8 +171,17 @@ class Qlsp extends React.Component {
 
         })
     }
+    onSubmit = values => {
+        let { index1 } = this.props;
+        console.log(44444, values)
+        if ((index1 || index1 === 0)) {
+            this.clickUpdate(values)
+        }
+        else {
+            this.handleSubmit(values)
+        }
+    }
     render() {
-        console.log(this.state)
         let { product, dataTable, deleteOne, allChackbox, trashCan, dataTrashcan, formDangNhap,
             fitterData, dataCheckbox, hiddenOpen, } = this.state;
         return (
@@ -180,7 +189,7 @@ class Qlsp extends React.Component {
                 <TitleToDo />
 
                 <InputFrorm
-                    doSave={this.doSave}
+                    onSubmit={this.onSubmit}
                     index1={this.index1}
                     clickEdit={this.clickEdit}
                     clickUpdate={this.clickUpdate}

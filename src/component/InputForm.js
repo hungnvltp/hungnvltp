@@ -13,28 +13,17 @@ class InputForm extends Component {
         }
         else return null;
     }
-    onSubmit = values => {
-        let product = this.state.product
-        let { index1, clickUpdate, handleSubmit } = this.props;
-        console.log(values)
-        if ((index1 || index1 === 0)) {
-            clickUpdate(values)
-        }
-        else {
-            handleSubmit(values)
-        }
 
-
-    }
     render() {
 
         let { index1 } = this.props;
         let product = this.state.product
+      
         return (
             <Form
-                onSubmit={this.onSubmit}
+                onSubmit={this.props.onSubmit}
                 initialValues={product}
-                render={({ handleSubmit, submitting, form, pristine, values }) => (
+                render={({ handleSubmit, form, values }) => (
                     <form onSubmit={handleSubmit}>
                         <label id="formTitle">Form</label><br></br>
                         <a href="!#" id="deleteForm" onClick={this.props.deteleForm}>X</a>
@@ -88,7 +77,6 @@ class InputForm extends Component {
                             <button type="submit"  >
                                 {(index1 || index1 === 0) ? "Upadate" : "Submit"}
                             </button>
-
                             <button id="ddd"
                                 type="button"
                                 onClick={form.reset}
