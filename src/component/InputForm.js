@@ -5,21 +5,36 @@ class InputForm extends Component {
         super(props);
         this.state = {
             product: props.product || {},
-            result: "",
         }
     }
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.product !== prevState.product) {
+            return { product: nextProps.product };
+        }
+        else return null;
+    }
     onSubmit = values => {
-        let { submitUpdate, index1 } = this.props;
-        console.log(index1)
-        
+        let product = this.state.product
+        let { index1, clickUpdate, handleSubmit } = this.props;
+        console.log(values)
+        if ((index1 || index1 === 0)) {
+            clickUpdate(values)
+        }
+        else {
+            handleSubmit(values)
+        }
+
+
     }
     render() {
-        let { submitUpdate, index1 } = this.props;
+
+        let { index1 } = this.props;
+        let product = this.state.product
         return (
             <Form
                 onSubmit={this.onSubmit}
-                initialValues={{}}
-                render={({ handleSubmit, submitting, pristine, values }) => (
+                initialValues={product}
+                render={({ handleSubmit, submitting, form, pristine, values }) => (
                     <form onSubmit={handleSubmit}>
                         <label id="formTitle">Form</label><br></br>
                         <a href="!#" id="deleteForm" onClick={this.props.deteleForm}>X</a>
@@ -70,9 +85,16 @@ class InputForm extends Component {
                             />
                         </div>
                         <div className="buttons">
-                            <button type="submit" disabled={submitting || pristine}>
-                                Submit
+                            <button type="submit"  >
+                                {(index1 || index1 === 0) ? "Upadate" : "Submit"}
                             </button>
+
+                            <button id="ddd"
+                                type="button"
+                                onClick={form.reset}
+                            >
+                                Reset
+                       </button>
                         </div>
                     </form>
                 )}

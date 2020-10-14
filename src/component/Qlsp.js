@@ -9,7 +9,7 @@ class Qlsp extends React.Component {
         this.state = {
             dataTable: [
                 {
-                    name: "333", company: "333", phoneNumber: "333", positon: "333", age: "333"
+                    name: "333", phoneNumber: "333", company: "333", positon: "333", age: "333"
                 }
             ],
             dataTrashcan: [],
@@ -23,37 +23,41 @@ class Qlsp extends React.Component {
             checkCheckbox: false,
             formDangNhap: false,
             submitUpdate: true,
-            product: {},
             hiddenOpen: true,
 
         }
     }
-    handleSubmit = () => {
+    handleSubmit = (values) => {
         this.setState({
             hiddenOpen: true,
-            dataTable: [...this.state.dataTable, this.state.product],
+            dataTable: [...this.state.dataTable, values],
+            formDangNhap: false,
             product: {
                 name: "", company: "", phoneNumber: "", positon: "", age: ""
             },
-            formDangNhap: false
         })
+
     };
-    clickEdit = (index) => {
-        alert("edit")
+    clickEdit = (index,) => {
+
         this.index1 = index;
         this.setState({
-            // hiddenOpen: false,
-            // formDangNhap: true,
+            hiddenOpen: false,
+            formDangNhap: true,
             product: this.state.dataTable[index],
         })
     }
-    clickUpdate = (product,) => {
+    clickUpdate = (values,) => {
+
         let dataTable = this.state.dataTable
-        dataTable[this.index1] = product
+        dataTable[this.index1] = values
         this.setState({
             formDangNhap: false,
             dataTable: this.state.dataTable,
-            hiddenOpen: true
+            hiddenOpen: true,
+            product: {
+                name: "", company: "", phoneNumber: "", positon: "", age: ""
+            },
         })
     }
     deleteData = (index) => {
@@ -141,7 +145,6 @@ class Qlsp extends React.Component {
         })
     }
     deleteAll = () => {
-
         let { dataTable, dataCheckbox, allChackbox, dataTrashcan } = this.state;
         if (this.state.checkCheckbox === true) {
             dataCheckbox = dataCheckbox.sort((a, b) => b - a);
@@ -168,43 +171,21 @@ class Qlsp extends React.Component {
 
         })
     }
-    doSave = (index1) => {
-        alert(88888)
-        let product = this.state.product
-        if (index1 || index1 === 0) {
-            this.clickUpdate(product)
-        } else {
-            alert(22222)
-            this.handleSubmit()
-
-        }
-    }
     render() {
         console.log(this.state)
         let { product, dataTable, deleteOne, allChackbox, trashCan, dataTrashcan, formDangNhap,
-            fitterData, inputUpdate, inputSubmit, dataCheckbox, submitUpdate,
-            hiddenOpen, } = this.state;
+            fitterData, dataCheckbox, hiddenOpen, } = this.state;
         return (
             <div className="App">
                 <TitleToDo />
-                {/* {formDangNhap && <InputFrorm
-                    submit={this.handleSubmit}
-                    product={product}
-                    update={this.clickUpdate}
-                    deteleForm={this.deteleForm}
-                    inputUpdate={inputUpdate}
-                    inputSubmit={inputSubmit}
-                    dataTable={dataTable}
-                    moForm={this.moForm}
-                    clickEdit={this.clickEdit}
-                    doSave={this.doSave}
-                    submitUpdate={submitUpdate}
-                    index1={this.index1}
-                />} */}
+
                 <InputFrorm
                     doSave={this.doSave}
                     index1={this.index1}
                     clickEdit={this.clickEdit}
+                    clickUpdate={this.clickUpdate}
+                    handleSubmit={this.handleSubmit}
+                    product={product}
                 />
                 <TableToDo
                     clickEdit={this.clickEdit}
