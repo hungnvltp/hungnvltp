@@ -23,11 +23,10 @@ class InputForm extends Component {
             <Form
                 onSubmit={this.props.onSubmit}
                 initialValues={product}
-                render={({ handleSubmit, form, values }) => (
+                render={({ handleSubmit, form, }) => (
                     <form onSubmit={handleSubmit}>
                         <label id="formTitle">Form</label><br></br>
                         <a href="!#" id="deleteForm" onClick={this.props.deteleForm}>X</a>
-
                         <div id="firstName">
                             <label className="textInput">First Name :</label><br></br>
                             <Field

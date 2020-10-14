@@ -1,4 +1,5 @@
 import React, { } from 'react';
+import { Form, Field } from 'react-final-form'
 class TableToDo extends React.Component {
     constructor(props) {
         super(props);
@@ -11,12 +12,7 @@ class TableToDo extends React.Component {
             oneLine: props.dataTable || {},
         }
     }
-    // componentWillReceiveProps = (nextProps) => {
-    //     this.setState({
-    //         dataTable: nextProps.dataTable
-    //     })
 
-    // }
     static getDerivedStateFromProps(nextProps, prevState) {
         console.log("nextProps.dataTable", nextProps.dataTable)
         console.log("prevState.dataTable", prevState.dataTable)
@@ -25,7 +21,7 @@ class TableToDo extends React.Component {
             return { dataTable: nextProps.dataTable };
         }
         else return null;
-        
+
     }
     search = (e) => {
         this.setState(
@@ -63,8 +59,7 @@ class TableToDo extends React.Component {
     }
     render() {
         let dataTable = this.state.dataTable;
-        let { dataCheckbox, buttonDelete,
-            hiddenOpen } = this.props
+        let { dataCheckbox, hiddenOpen } = this.props
         const aa = dataTable.map((products, index) => {
             return <tr className="dataLists" key={index.toString()}>
                 <td>
@@ -93,7 +88,13 @@ class TableToDo extends React.Component {
                         {hiddenOpen && <button type="submit" className="open" onClick={this.props.openTrashCan}>Open TrashCan</button>}
                         {hiddenOpen && <input type="text" className="timkiem" placeholder="Search...." value={this.state.result} onChange={this.search} />}
                         {hiddenOpen && <input type="button" className="buttonTimkiem" onClick={this.fitterData} value="Search"></input>}
+                        {/* <Form
+                            onSubmit={this.props.onSubmit}
+                        /> */}
+
+
                     </div>
+
                     <div id="thongtin">
                         <table id="idTable" cellPadding={20} border={0}>
                             <thead>
@@ -124,7 +125,7 @@ class TableToDo extends React.Component {
                     </div>
                 </div>
 
-            </div>
+            </div >
 
         );
     }

@@ -27,17 +27,17 @@ class Qlsp extends React.Component {
 
         }
     }
-    handleSubmit = (values) => {
-        this.setState({
-            hiddenOpen: true,
-            dataTable: [...this.state.dataTable, values],
-            formDangNhap: false,
-            product: {
-                name: "", company: "", phoneNumber: "", positon: "", age: ""
-            },
-        })
+    // handleSubmit = (values) => {
+    //     this.setState({
+    //         hiddenOpen: true,
+    //         dataTable: [...this.state.dataTable, values],
+    //         formDangNhap: false,
+    //         product: {
+    //             name: "", company: "", phoneNumber: "", positon: "", age: ""
+    //         },
+    //     })
 
-    };
+    // };
     clickEdit = (index,) => {
 
         this.index1 = index;
@@ -47,19 +47,19 @@ class Qlsp extends React.Component {
             product: this.state.dataTable[index],
         })
     }
-    clickUpdate = (values,) => {
+    // clickUpdate = (values,) => {
 
-        let dataTable = this.state.dataTable
-        dataTable[this.index1] = values
-        this.setState({
-            formDangNhap: false,
-            dataTable: this.state.dataTable,
-            hiddenOpen: true,
-            product: {
-                name: "", company: "", phoneNumber: "", positon: "", age: ""
-            },
-        })
-    }
+    //     let dataTable = this.state.dataTable
+    //     dataTable[this.index1] = values
+    //     this.setState({
+    //         formDangNhap: false,
+    //         dataTable: this.state.dataTable,
+    //         hiddenOpen: true,
+    //         product: {
+    //             name: "", company: "", phoneNumber: "", positon: "", age: ""
+    //         },
+    //     })
+    // }
     deleteData = (index) => {
         let dataTrashcan = this.state;
         const dataTable = this.state.dataTable;
@@ -172,13 +172,27 @@ class Qlsp extends React.Component {
         })
     }
     onSubmit = values => {
-        let { index1 } = this.props;
-        console.log(44444, values)
-        if ((index1 || index1 === 0)) {
-            this.clickUpdate(values)
+        let dataTable = this.state.dataTable
+        if ((this.index1 || this.index1 === 0)) {
+            dataTable[this.index1] = values
+            this.setState({
+                formDangNhap: false,
+                dataTable: this.state.dataTable,
+                hiddenOpen: true,
+                product: {
+                    name: "", company: "", phoneNumber: "", positon: "", age: ""
+                },
+            })
         }
         else {
-            this.handleSubmit(values)
+            this.setState({
+                hiddenOpen: true,
+                dataTable: [...this.state.dataTable, values],
+                formDangNhap: false,
+                product: {
+                    name: "", company: "", phoneNumber: "", positon: "", age: ""
+                },
+            })
         }
     }
     render() {
