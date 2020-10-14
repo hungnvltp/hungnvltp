@@ -11,21 +11,21 @@ class TableToDo extends React.Component {
             oneLine: props.dataTable || {},
         }
     }
-    // componentWillReceiveProps = (nextProps) => {
-    //     this.setState({
-    //         dataTable: nextProps.dataTable
-    //     })
+    componentWillReceiveProps = (nextProps) => {
+        this.setState({
+            dataTable: nextProps.dataTable
+        })
 
-    // }
-    static getDerivedStateFromProps(nextProps, prevState) {
-        console.log("nextProps.dataTable", nextProps.dataTable)
-        console.log("prevState.dataTable", prevState.dataTable)
-
-        if (nextProps.dataTable !== prevState.dataTable) {
-            return { dataTable: nextProps.dataTable };
-        }
-        else return null;
     }
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //     console.log("nextProps.dataTable", nextProps.dataTable)
+    //     console.log("prevState.dataTable", prevState.dataTable)
+
+    //     if (nextProps.dataTable !== prevState.dataTable) {
+    //         return { dataTable: nextProps.dataTable };
+    //     }
+    //     else return null;
+    // }
     search = (e) => {
         this.setState(
             {
@@ -34,24 +34,29 @@ class TableToDo extends React.Component {
         )
     }
     fitterData = () => {
+        alert(676666)
         const dataTable = this.state.dataTable;
         const result = this.state.result;
         let sourceArray = dataTable;
         let newArray = [];
+
         if (result.length <= 0) {
             newArray = sourceArray;
         } else {
             result.toLowerCase();
+
             for (let item of sourceArray) {
                 item.name = item.name || "";
                 item.phoneNumber = item.phoneNumber || "";
                 item.positon = item.positon || "";
                 item.company = item.company || "";
                 item.age = item.age || "";
+
                 if ((item.name.toLowerCase().indexOf(result) > -1) || (item.phoneNumber.toLowerCase().indexOf(result) > -1)
                     || (item.positon.toLowerCase().indexOf(result) > -1) || (item.company.toLowerCase().indexOf(result) > -1)
                     || (item.age.toLowerCase().indexOf(result) > -1)) {
                     newArray.push(item);
+
                 }
             }
         }
