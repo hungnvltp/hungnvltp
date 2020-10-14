@@ -23,42 +23,46 @@ class TableToDo extends React.Component {
         else return null;
 
     }
-    search = (e) => {
-        this.setState(
-            {
-                result: e.target.value
-            }
-        )
-    }
-    fitterData = () => {
+    // search = (e) => {
+    //     this.setState(
+    //         {
+    //             result: e.target.value
+    //         }
+    //     )
+    // }
+    fitterData = (values) => {
+        console.log(values.search)
         const dataTable = this.state.dataTable;
-        const result = this.state.result;
         let sourceArray = dataTable;
         let newArray = [];
-        if (result.length <= 0) {
+        if (values.search.length <= 0) {
             newArray = sourceArray;
         } else {
-            result.toLowerCase();
+
+            values.search.toLowerCase();
             for (let item of sourceArray) {
                 item.name = item.name || "";
                 item.phoneNumber = item.phoneNumber || "";
                 item.positon = item.positon || "";
                 item.company = item.company || "";
                 item.age = item.age || "";
-                if ((item.name.toLowerCase().indexOf(result) > -1) || (item.phoneNumber.toLowerCase().indexOf(result) > -1)
-                    || (item.positon.toLowerCase().indexOf(result) > -1) || (item.company.toLowerCase().indexOf(result) > -1)
-                    || (item.age.toLowerCase().indexOf(result) > -1)) {
+                if ((item.name.toLowerCase().indexOf(values.search) > -1) || (item.phoneNumber.toLowerCase().indexOf(values.search) > -1)
+                    || (item.positon.toLowerCase().indexOf(values.search) > -1) || (item.company.toLowerCase().indexOf(values.search) > -1)
+                    || (item.age.toLowerCase().indexOf(values.search) > -1)) {
                     newArray.push(item);
                 }
             }
         }
+        console.log("aaray", newArray)
         this.setState({
-            dataTable: newArray,
-            result: result
+            dataTable: newArray
         });
+        console.log("datatable", dataTable)
     }
     render() {
+
         let dataTable = this.state.dataTable;
+
         let { dataCheckbox, hiddenOpen } = this.props
         const aa = dataTable.map((products, index) => {
             return <tr className="dataLists" key={index.toString()}>
@@ -80,53 +84,100 @@ class TableToDo extends React.Component {
         }
         )
         return (
-            <div className="App">
-                <div className="table">
-                    <div id="menu">
-                        <div id="tieuDe">Data List</div>
-                        <button type="submit" className="add" onClick={this.props.moForm}>Add  New</button>
-                        {hiddenOpen && <button type="submit" className="open" onClick={this.props.openTrashCan}>Open TrashCan</button>}
-                        {hiddenOpen && <input type="text" className="timkiem" placeholder="Search...." value={this.state.result} onChange={this.search} />}
-                        {hiddenOpen && <input type="button" className="buttonTimkiem" onClick={this.fitterData} value="Search"></input>}
-                        {/* <Form
-                            onSubmit={this.props.onSubmit}
-                        /> */}
+            // <div className="App">
+            //     <div className="table">
+            //         <div id="menu">
+            //             <div id="tieuDe">Data List</div>
+            //             <button type="submit" className="add" onClick={this.props.moForm}>Add  New</button>
+            //             {hiddenOpen && <button type="submit" className="open" onClick={this.props.openTrashCan}>Open TrashCan</button>}
+            //             {/* {hiddenOpen && <input type="text" className="timkiem" placeholder="Search...." value={this.state.result} onChange={this.search} />}
+            //             {hiddenOpen && <input type="button" className="buttonTimkiem" onClick={this.fitterData} value="Search"></input>} */}
+
+            //         </div>
+
+            //         <div id="thongtin">
+            //             <table id="idTable" cellPadding={20} border={0}>
+            //                 <thead>
+            //                     <tr>
+            //                         <th>
+            //                             {hiddenOpen && <input type="checkbox" onClick={this.props.handleAllChecked} id="all" name="all" value={this.props.allChackbox}></input>}
+            //                             {hiddenOpen && <label > All</label>}
+            //                         </th>
+            //                         <th>Name</th>
+            //                         <th>phoneNumber</th>
+            //                         <th>Company</th>
+            //                         <th>Position</th>
+            //                         <th>Age</th>
+            //                         {hiddenOpen && <th width="60px">Delete</th>}
+            //                         {hiddenOpen && <th width="60px" >Edit</th>}
+            //                     </tr>
+            //                 </thead>
+            //                 <tbody>
+            //                     {aa}
+            //                     {hiddenOpen && <button type="submit" className="deleteAll" onClick={this.props.deleteAll}>Delete All</button>}
+
+            //                     {/* <p >
+            //                         Bạn đang xem đến trang
+            //                         </p> */}
+
+            //                 </tbody>
+            //             </table>
+            //         </div>
+            //     </div>
+
+            // </div>
+            <Form
+                onSubmit={this.fitterData}
+                initialValues={{}}
+                render={({ handleSubmit, form, values }) => (
+                    <form onSubmit={handleSubmit} id="formTable">
 
 
-                    </div>
+                        <div id="menu">
+                            <div id="tieuDe">Data List</div>
+                            <button type="submit" className="add" onClick={this.props.moForm}>Add  New</button>
+                            {hiddenOpen && <button type="submit" className="open" onClick={this.props.openTrashCan}>Open TrashCan</button>}
+                            {hiddenOpen && <Field
+                                id="timkiem"
+                                name="search"
+                                component="input"
+                                type="text"
+                                placeholder="search"
+                            />}
 
-                    <div id="thongtin">
-                        <table id="idTable" cellPadding={20} border={0}>
-                            <thead>
-                                <tr>
-                                    <th>
-                                        {hiddenOpen && <input type="checkbox" onClick={this.props.handleAllChecked} id="all" name="all" value={this.props.allChackbox}></input>}
-                                        {hiddenOpen && <label > All</label>}
-                                    </th>
-                                    <th>Name</th>
-                                    <th>phoneNumber</th>
-                                    <th>Company</th>
-                                    <th>Position</th>
-                                    <th>Age</th>
-                                    {hiddenOpen && <th width="60px">Delete</th>}
-                                    {hiddenOpen && <th width="60px" >Edit</th>}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {aa}
-                                {hiddenOpen && <button type="submit" className="deleteAll" onClick={this.props.deleteAll}>Delete All</button>}
+                            {hiddenOpen && <button type="submit" className="buttonTimkiem" >
+                                Search
+                            </button>}
+                        </div>
+                        <div id="thongtin">
+                            <table id="idTable" cellPadding={20} border={0}>
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            {hiddenOpen && <input type="checkbox" onClick={this.props.handleAllChecked} id="all" name="all" value={this.props.allChackbox}></input>}
+                                            {hiddenOpen && <label > All</label>}
+                                        </th>
+                                        <th>Name</th>
+                                        <th>phoneNumber</th>
+                                        <th>Company</th>
+                                        <th>Position</th>
+                                        <th>Age</th>
+                                        {hiddenOpen && <th width="60px">Delete</th>}
+                                        {hiddenOpen && <th width="60px" >Edit</th>}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {aa}
+                                    {hiddenOpen && <button type="submit" className="deleteAll" onClick={this.props.deleteAll}>Delete All</button>}
 
-                                {/* <p >
-                                    Bạn đang xem đến trang
-                                    </p> */}
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                </tbody>
+                            </table>
+                        </div>
 
-            </div >
-
+                    </form>
+                )}
+            />
         );
     }
 }

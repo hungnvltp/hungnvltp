@@ -1,6 +1,5 @@
 import React, { } from 'react';
 import InputFrorm from './InputForm';
-import TitleToDo from './TitleToDo'
 import TableToDo from './TableToDo'
 import Trashcan from './Trashcan'
 class Qlsp extends React.Component {
@@ -200,7 +199,7 @@ class Qlsp extends React.Component {
             fitterData, dataCheckbox, hiddenOpen, } = this.state;
         return (
             <div className="App">
-                <TitleToDo />
+
 
                 <InputFrorm
                     onSubmit={this.onSubmit}

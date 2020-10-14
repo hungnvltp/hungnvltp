@@ -24,7 +24,7 @@ code {
 #deleteForm{
   position: absolute;
 	
-    top:85px;
+    top:35px;
     right: 75.8%;
 }
 
@@ -45,7 +45,7 @@ code {
 #menu{
     height: 100px;
     width: 100%;
-    background-color: whitesmoke;
+    background-color: rgb(64, 238, 186);
     
 }
 .trashCanMenu{
@@ -72,8 +72,8 @@ code {
   background-color: darkgrey;
   color: white;
 }
-.timkiem{
-   margin-left: 150px;
+#timkiem{
+  margin-left: 100px;
     width: 250px;
     height: 40px;
 }
@@ -144,4 +144,7 @@ form{
 }
 #ddd{
   margin-left: 56px;
+}
+#formTable{
+  width: 900px;
 }
