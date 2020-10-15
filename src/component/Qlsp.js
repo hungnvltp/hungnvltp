@@ -9,6 +9,8 @@ class Qlsp extends React.Component {
             dataTable: [
                 {
                     name: "333", phoneNumber: "333", company: "333", positon: "333", age: "333"
+                }, {
+                    name: "55", phoneNumber: "55", company: "555", positon: "55", age: "55"
                 }
             ],
             dataTrashcan: [],
@@ -26,17 +28,7 @@ class Qlsp extends React.Component {
 
         }
     }
-    // handleSubmit = (values) => {
-    //     this.setState({
-    //         hiddenOpen: true,
-    //         dataTable: [...this.state.dataTable, values],
-    //         formDangNhap: false,
-    //         product: {
-    //             name: "", company: "", phoneNumber: "", positon: "", age: ""
-    //         },
-    //     })
 
-    // };
     clickEdit = (index,) => {
 
         this.index1 = index;
@@ -46,19 +38,7 @@ class Qlsp extends React.Component {
             product: this.state.dataTable[index],
         })
     }
-    // clickUpdate = (values,) => {
 
-    //     let dataTable = this.state.dataTable
-    //     dataTable[this.index1] = values
-    //     this.setState({
-    //         formDangNhap: false,
-    //         dataTable: this.state.dataTable,
-    //         hiddenOpen: true,
-    //         product: {
-    //             name: "", company: "", phoneNumber: "", positon: "", age: ""
-    //         },
-    //     })
-    // }
     deleteData = (index) => {
         let dataTrashcan = this.state;
         const dataTable = this.state.dataTable;
@@ -194,21 +174,56 @@ class Qlsp extends React.Component {
             })
         }
     }
+    fitterData = (values) => {
+
+        let { dataTable } = this.state;
+        let sourceArray = dataTable;
+        let newArray = [];
+        var searchValues = values.search || "";
+        if (searchValues.length == 0) {
+            newArray = sourceArray;
+        }
+        else {
+            searchValues.toLowerCase();
+            for (let item of sourceArray) {
+                item.name = item.name;
+                item.phoneNumber = item.phoneNumber;
+                item.positon = item.positon;
+                item.company = item.company;
+                item.age = item.age;
+                if ((item.name.toLowerCase().indexOf(searchValues) > -1)
+                    || (item.phoneNumber.toLowerCase().indexOf(searchValues) > -1)
+                    || (item.positon.toLowerCase().indexOf(searchValues) > -1)
+                    || (item.company.toLowerCase().indexOf(searchValues) > -1)
+                    || (item.age.toLowerCase().indexOf(searchValues) > -1)) {
+                    newArray.push(item);
+                }
+            }
+        }
+        if (newArray = []) {
+            console.log("không có dữ liệu nào")
+        }
+        this.setState({
+            dataTable: newArray
+        });
+
+    }
     render() {
+
         let { product, dataTable, deleteOne, allChackbox, trashCan, dataTrashcan, formDangNhap,
             fitterData, dataCheckbox, hiddenOpen, } = this.state;
         return (
             <div className="App">
 
 
-                <InputFrorm
+                { <InputFrorm
                     onSubmit={this.onSubmit}
                     index1={this.index1}
                     clickEdit={this.clickEdit}
                     clickUpdate={this.clickUpdate}
                     handleSubmit={this.handleSubmit}
                     product={product}
-                />
+                />}
                 <TableToDo
                     clickEdit={this.clickEdit}
                     fitterData={fitterData}
@@ -224,13 +239,14 @@ class Qlsp extends React.Component {
                     checkCheckbox_2={this.checkCheckbox_2}
                     dataCheckbox={dataCheckbox}
                     hiddenOpen={hiddenOpen}
-
+                    fitterData={this.fitterData}
                 />
                 {trashCan && <Trashcan
                     dataTrashcan={dataTrashcan}
                     restoreData={this.restoreData}
                     perDeleted={this.perDeleted}
                     hidden={this.hidden}
+
                 />}
             </div>
         );
