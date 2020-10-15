@@ -175,6 +175,14 @@ class Qlsp extends React.Component {
 
         }
     }
+    handleFormChange = (e) => {
+     
+        let { product } = this.state;
+
+        product[e.target.name] = e.target.value;
+
+        this.setState({ product })
+    }
     render() {
         console.log(this.state)
         let { product, dataTable, deleteOne, allChackbox, trashCan, dataTrashcan, formDangNhap,
@@ -196,6 +204,7 @@ class Qlsp extends React.Component {
                     doSave={this.doSave}
                     submitUpdate={submitUpdate}
                     index1={this.index1}
+                    handleFormChange={this.handleFormChange}
                 />}
                 <TableToDo
                     clickEdit={this.clickEdit}
