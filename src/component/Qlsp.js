@@ -151,6 +151,7 @@ class Qlsp extends React.Component {
         })
     }
     onSubmit = values => {
+        console.log("product", values)
         let dataTable = this.state.dataTable
         if ((this.index1 || this.index1 === 0)) {
             dataTable[this.index1] = values
@@ -174,6 +175,7 @@ class Qlsp extends React.Component {
             })
         }
     }
+
     fitterData = (values) => {
 
         let { dataTable } = this.state;

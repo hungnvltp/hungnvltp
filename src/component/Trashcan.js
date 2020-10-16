@@ -1,4 +1,6 @@
 import React from 'react';
+import 'rsuite/dist/styles/rsuite-default.css';
+import { Button } from 'rsuite';
 class Trashcan extends React.Component {
     constructor(props) {
         super(props);
