@@ -119,13 +119,12 @@ code {
 }
 
 #formLogin{
- 
       width: 400px;
       margin-left: 50px;
       height: 530px;
       background-color: whitesmoke;
        float: left;
-      border: 2px solid black;
+      border: 2px solid #3498FF;
       border-radius: 4px;
       display: block;
       margin-right: 50px;

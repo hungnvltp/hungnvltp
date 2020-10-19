@@ -50,7 +50,7 @@ class TableToDo extends React.Component {
         return (
 
             <FormValue123
-                onSubmit={this.props.fitterData}
+                onSubmit={this.props.clickEdit}
                 initialValues={{}}
                 render={({ handleSubmit, form, values }) => (
                     <Form onSubmit={handleSubmit} >
@@ -112,12 +112,9 @@ class TableToDo extends React.Component {
                                             <HeaderCell>Action</HeaderCell>
                                             <Cell>
                                                 {rowData => {
-                                                    function handleAction() {
-                                                        alert(`name :${rowData.name}`);
-                                                    }
                                                     return (
                                                         <span>
-                                                            <a onClick={(index) => this.props.clickEdit(index)}> Edit </a> |{' '}
+                                                            <a onClick={this.props.clickEdit}> Edit </a>|
                                                             <a onClick={this.props.deleteData}> Remove </a>
                                                         </span>
                                                     );
@@ -126,7 +123,6 @@ class TableToDo extends React.Component {
                                         </Column>
                                     </Table>
                                 </Content>
-
                             </Container>
                         </div>
 
