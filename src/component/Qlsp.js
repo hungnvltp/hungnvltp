@@ -25,7 +25,7 @@ class Qlsp extends React.Component {
             formDangNhap: false,
             submitUpdate: true,
             hiddenOpen: true,
-
+            product: "",
         }
     }
 
@@ -51,12 +51,14 @@ class Qlsp extends React.Component {
             trashCan: true,
         })
     }
-    deteleForm = (e) => {
+    deleteForm = (e) => {
+
         this.setState({
             formDangNhap: false
         })
     }
     moForm = () => {
+
         this.index1 = ""
         this.setState({
             formDangNhap: true,
@@ -83,6 +85,7 @@ class Qlsp extends React.Component {
         })
     }
     hidden = () => {
+
         this.setState({
             trashCan: false,
         })
@@ -210,21 +213,26 @@ class Qlsp extends React.Component {
         });
 
     }
+    handleFormChange = (e) => {
+        let product = this.state.product;
+        product[e.target.name] = e.target.value;
+        this.setState({ product })
+    }
     render() {
 
         let { product, dataTable, deleteOne, allChackbox, trashCan, dataTrashcan, formDangNhap,
             fitterData, dataCheckbox, hiddenOpen, } = this.state;
         return (
             <div className="App">
-
-
-                { <InputFrorm
+                { formDangNhap && <InputFrorm
                     onSubmit={this.onSubmit}
                     index1={this.index1}
                     clickEdit={this.clickEdit}
                     clickUpdate={this.clickUpdate}
                     handleSubmit={this.handleSubmit}
                     product={product}
+                    deteleForm={this.deleteForm}
+                    handleFormChange={this.handleFormChange}
                 />}
                 <TableToDo
                     clickEdit={this.clickEdit}

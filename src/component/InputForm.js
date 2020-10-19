@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form as FormInput, Field } from 'react-final-form'
 import 'rsuite/dist/styles/rsuite-default.css';
-import { Form, Button, FormGroup, FormControl, ControlLabel, HelpBlock, ButtonToolbar, TextField } from 'rsuite';
+import { Form, Button, FormGroup, FormControl, ControlLabel, Navbar, ButtonToolbar, Nav, Icon, Input, InputGroup } from 'rsuite';
 class InputForm extends Component {
     constructor(props) {
         super(props);
@@ -16,44 +16,54 @@ class InputForm extends Component {
         else return null;
     }
     render() {
-
         let { index1 } = this.props;
         let product = this.state.product
-
+       
         return (
             <FormInput
                 onSubmit={this.props.onSubmit}
                 initialValues={product}
                 render={({ handleSubmit, form, }) => (
-                    <Form onSubmit={handleSubmit} ayout="horizontal">
-                        <ControlLabel id="formTitle">Form</ControlLabel>
+                    <Form onSubmit={handleSubmit} layout="horizontal" id="formLogin">
+                        <Navbar >
+                            <Navbar.Header>
+                                <h3 id="titleForm">Form</h3>
+                            </Navbar.Header>
+                            <Navbar.Body>
+                                <Nav pullRight >
+                                    <div className='icon-example-list' >
+                                        <Icon icon='close' size="lg" onClick={this.props.deteleForm} />
+                                    </div>
+                                </Nav>
+                            </Navbar.Body>
+                        </Navbar>
                         <FormGroup className="textInput">
                             <ControlLabel>First Name :</ControlLabel>
-                            <FormControl name="name" placeholder="Name" />
-                        </FormGroup>
-                        <FormGroup className="textInput">
+                            <Input placeholder="Name" type="text" value={product.name} onChange={this.props.handleFormChange} />
+
                             <ControlLabel>Phone Number :</ControlLabel>
-                            <FormControl name="phoneNumber" placeholder="Phone Number" />
-                        </FormGroup>
-                        <FormGroup className="textInput">
+                            <Input placeholder="Phone Number" type="text" value={product.phoneNumber} onChange={this.props.handleFormChange} />
+
                             <ControlLabel>Company :</ControlLabel>
-                            <FormControl name="company" placeholder="Company" />
-                        </FormGroup>
-                        <FormGroup className="textInput">
+                            <Input placeholder="Company" type="text" value={product.company} onChange={this.props.handleFormChange} />
+
                             <ControlLabel>Position :</ControlLabel>
-                            <FormControl name="positon" placeholder="Position" />
-                        </FormGroup>
-                        <FormGroup className="textInput">
+                            <Input placeholder="Position" type="text" value={product.positon} onChange={this.props.handleFormChange} />
+
                             <ControlLabel>Age :</ControlLabel>
-                            <FormControl name="age" placeholder="Age" />
+                            <Input placeholder="Age" type="text" value={product.age} onChange={this.props.handleFormChange} />
                         </FormGroup>
-                        <FormGroup className="textInput">
+                        <FormGroup>
                             <ButtonToolbar>
                                 <Button type="submit" appearance="primary">
                                     {(index1 || index1 === 0) ? "Upadate" : "Submit"}
                                 </Button>
+                                <Button type="button" appearance="primary" onClick={form.reset}>
+                                    Resset
+                                </Button>
                             </ButtonToolbar>
                         </FormGroup>
+
                     </Form>
                 )}
 
