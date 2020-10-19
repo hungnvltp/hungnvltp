@@ -117,7 +117,7 @@ class TableToDo extends React.Component {
                                                     }
                                                     return (
                                                         <span>
-                                                            <a onClick={this.props.clickEdit}> Edit </a> |{' '}
+                                                            <a onClick={(index) => this.props.clickEdit(index)}> Edit </a> |{' '}
                                                             <a onClick={this.props.deleteData}> Remove </a>
                                                         </span>
                                                     );

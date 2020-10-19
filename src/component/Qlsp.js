@@ -29,8 +29,8 @@ class Qlsp extends React.Component {
         }
     }
 
-    clickEdit = (index,) => {
-
+    clickEdit = (index) => {
+        console.log("index", index)
         this.index1 = index;
         this.setState({
             hiddenOpen: false,
@@ -155,9 +155,10 @@ class Qlsp extends React.Component {
     }
     onSubmit = values => {
         console.log("product", values)
-        let dataTable = this.state.dataTable
+
+        let { dataTable, product } = this.state
         if ((this.index1 || this.index1 === 0)) {
-            dataTable[this.index1] = values
+            dataTable[this.index1] = product
             this.setState({
                 formDangNhap: false,
                 dataTable: this.state.dataTable,
@@ -170,7 +171,7 @@ class Qlsp extends React.Component {
         else {
             this.setState({
                 hiddenOpen: true,
-                dataTable: [...this.state.dataTable, values],
+                dataTable: [...this.state.dataTable, product],
                 formDangNhap: false,
                 product: {
                     name: "", company: "", phoneNumber: "", positon: "", age: ""
@@ -213,7 +214,10 @@ class Qlsp extends React.Component {
         });
 
     }
-    handleFormChange = (e) => {
+    handleFormChange = (value, e) => {
+        console.log(("value", value))
+        console.log("e", e)
+
         let product = this.state.product;
         product[e.target.name] = e.target.value;
         this.setState({ product })

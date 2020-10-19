@@ -18,7 +18,7 @@ class InputForm extends Component {
     render() {
         let { index1 } = this.props;
         let product = this.state.product
-       
+
         return (
             <FormInput
                 onSubmit={this.props.onSubmit}
@@ -39,19 +39,15 @@ class InputForm extends Component {
                         </Navbar>
                         <FormGroup className="textInput">
                             <ControlLabel>First Name :</ControlLabel>
-                            <Input placeholder="Name" type="text" value={product.name} onChange={this.props.handleFormChange} />
-
+                            <Input placeholder="Name" name="name" type="text" value={product.name} onChange={(value, e) => this.props.handleFormChange(value, e)} />
                             <ControlLabel>Phone Number :</ControlLabel>
-                            <Input placeholder="Phone Number" type="text" value={product.phoneNumber} onChange={this.props.handleFormChange} />
-
+                            <Input placeholder="Phone Number" name="phoneNumber" type="text" value={product.phoneNumber} onChange={(value, e) => this.props.handleFormChange(value, e)} />
                             <ControlLabel>Company :</ControlLabel>
-                            <Input placeholder="Company" type="text" value={product.company} onChange={this.props.handleFormChange} />
-
+                            <Input placeholder="Company" name="company" type="text" value={product.company} onChange={(value, e) => this.props.handleFormChange(value, e)} />
                             <ControlLabel>Position :</ControlLabel>
-                            <Input placeholder="Position" type="text" value={product.positon} onChange={this.props.handleFormChange} />
-
+                            <Input placeholder="Position" name="positon" type="text" value={product.positon} onChange={(value, e) => this.props.handleFormChange(value, e)} />
                             <ControlLabel>Age :</ControlLabel>
-                            <Input placeholder="Age" type="text" value={product.age} onChange={this.props.handleFormChange} />
+                            <Input placeholder="Age" name="age" type="text" value={product.age} onChange={(value, e) => this.props.handleFormChange(value, e)} />
                         </FormGroup>
                         <FormGroup>
                             <ButtonToolbar>
