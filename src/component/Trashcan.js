@@ -18,25 +18,16 @@ class Trashcan extends React.Component {
         else return null;
     }
     onSubmit = () => {
+    }
+    phucHoi = (index) => {
+        this.props.restoreData(index)
+    }
+    xoaDuLieu = (index) => {
 
+        this.props.perDeleted(index)
     }
     render() {
-        // let dataTrashCan = this.state.dataTrashcan
-        // const listDada = dataTrashCan.map((data, index) => {
-        //     return <tr key={index.toString()} >
-        //         <td>{data.name}</td>
-        //         <td>{data.phoneNumber}</td>
-        //         <td>{data.company}</td>
-        //         <td>{data.positon}</td>
-        //         <td>{data.age}</td>
-        //         <td >
-        //             <a href="!#" onClick={() => this.props.restoreData(index)}>Restore</a>
-        //         </td>
-        //         <td >
-        //             <a href="!#" onClick={() => this.props.perDeleted(index)}>Deleted</a>
-        //         </td>
-        //     </tr>
-        // })
+
         return (
             <FormTran
                 onSubmit={this.onSubmit}
@@ -52,14 +43,11 @@ class Trashcan extends React.Component {
                                         </Navbar.Header>
                                         <Navbar.Body>
                                             <Nav>
-
                                                 <Nav.Item icon={<Icon icon="trash2" />} >
                                                     Trash
                                                 </Nav.Item>
-
                                             </Nav>
                                             <Nav pullRight>
-
                                                 <div className='icon-example-list' >
                                                     <Icon icon='close' size="lg" onClick={this.props.hidden} />
                                                 </div>
@@ -70,7 +58,7 @@ class Trashcan extends React.Component {
                                 <Content>
                                     <Table
                                         height={400}
-                                        data={this.state.dataTable}
+                                        data={this.props.dataTrashcan}
                                     >
                                         <Column width={200} fixed>
                                             <HeaderCell>Name </HeaderCell>
@@ -95,14 +83,11 @@ class Trashcan extends React.Component {
                                         <Column width={120} fixed="right">
                                             <HeaderCell>Action</HeaderCell>
                                             <Cell>
-                                                {rowData => {
-                                                    function handleAction() {
-                                                        alert(`name :${rowData.name}`);
-                                                    }
+                                                {(rowData, index) => {
                                                     return (
                                                         <span>
-                                                            <a onClick={handleAction}> Restore </a> |{' '}
-                                                            <a onClick={handleAction}> Delete </a>
+                                                            <a onClick={() => this.phucHoi(index)}> Restore </a> |{' '}
+                                                            <a onClick={() => this.xoaDuLieu(index)}> Delete </a>
                                                         </span>
                                                     );
                                                 }}
@@ -113,37 +98,10 @@ class Trashcan extends React.Component {
 
                             </Container>
                         </div>
-
-
-
                     </Form>
                 )
                 }
             />
-            // <div className="trashCan" >
-            //     <div className="trashCanMenu">
-            //         <div id="nameMenu">Trashcan</div>
-            //         <button type="submit" className="hidden" onClick={this.props.hidden}>Hidden</button>
-            //     </div>
-            //     <div className="trashCanList">
-            //         <table id="tableTrashCan" cellPadding={20} border={0}>
-            //             <thead>
-            //                 <tr>
-            //                     <th>Name</th>
-            //                     <th>phoneNumber</th>
-            //                     <th>Company</th>
-            //                     <th>Position</th>
-            //                     <th>Age</th>
-            //                     <th width="60px" >restore</th>
-            //                     <th width="60px">Delete</th>
-            //                 </tr>
-            //             </thead>
-            //             <tbody>
-            //                 {listDada}
-            //             </tbody>
-            //         </table>
-            //     </div>
-            // </div>
         )
     }
 }

@@ -7,7 +7,7 @@ class TableToDo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            result: "",
+            result: props.result,
             formDangNhap: false,
             submit: false,
             update: false,
@@ -17,41 +17,38 @@ class TableToDo extends React.Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
+        console.log("nextProps.dataTable ", nextProps)
         if (nextProps.dataTable !== prevState.dataTable) {
             return { dataTable: nextProps.dataTable };
         }
         else return null;
 
     }
+    handleAction = (index) => {
+        console.log('index :', index)
+        this.props.clickEdit(index)
+    }
+    deleteValue = (index) => {
+        this.props.deleteData(index)
+    }
+    onSubmit = () => {
+    }
+    fitterData = () => {
+        this.props.fitterData()
+    }
 
     render() {
 
-        let dataTable = this.state.dataTable;
-        let { dataCheckbox, hiddenOpen } = this.props
-        // const aa = dataTable.map((products, index) => {
-        //     return <tr className="dataLists" key={index.toString()}>
-        //         <td>
-        //             {hiddenOpen && <input type="checkbox" checked={dataCheckbox.indexOf(index) !== -1} id="oneLine" name="oneLine" value={this.props.deleteOne} onClick={(e) => this.props.handleOneChecked(index, e)}></input>}
-        //         </td>
-        //         <td>{products.name}</td>
-        //         <td>{products.phoneNumber}</td>
-        //         <td>{products.company}</td>
-        //         <td>{products.positon}</td>
-        //         <td>{products.age}</td>
-        //         <td >
-        //             {hiddenOpen && <a href="!#" onClick={() => this.props.deleteData(index)}>Delete</a>}
-        //         </td>
-        //         <td >
-        //             {hiddenOpen && <a href="!#" onClick={() => this.props.clickEdit(index)}>Edit</a>}
-        //         </td>
-        //     </tr>
-        // }
-        // )
+        let result = this.state.result;
+
+
+
         return (
 
-            <FormValue123
-                onSubmit={this.props.clickEdit}
-                initialValues={{}}
+            < FormValue123
+                onSubmit={this.onSubmit}
+                initialValues={{}
+                }
                 render={({ handleSubmit, form, values }) => (
                     <Form onSubmit={handleSubmit} >
                         <div className="show-fake-browser navbar-page">
@@ -59,24 +56,21 @@ class TableToDo extends React.Component {
                                 <Header>
                                     <Navbar appearance="inverse">
                                         <Navbar.Header>
-
                                         </Navbar.Header>
                                         <Navbar.Body>
                                             <Nav>
-
                                                 <Nav.Item icon={<Icon icon="paint-brush" />} onClick={this.props.moForm}>
                                                     Add New
                                                 </Nav.Item>
                                                 <Nav.Item icon={<Icon icon="trash2" />} onClick={this.props.openTrashCan} >
                                                     Trashcan
                                                 </Nav.Item>
-
                                             </Nav>
                                             <Nav pullRight >
                                                 <InputGroup id="searchData" >
-                                                    <Input />
+                                                    <Input value={result} name="result" onChange={(value, e) => this.props.chanFilter(value, e)} />
                                                     <InputGroup.Addon>
-                                                        <Icon icon="search" onClick={this.props.fitterData} />
+                                                        <Icon icon="search" onClick={this.fitterData} />
                                                     </InputGroup.Addon>
                                                 </InputGroup>
                                             </Nav>
@@ -87,6 +81,7 @@ class TableToDo extends React.Component {
                                     <Table
                                         height={400}
                                         data={this.state.dataTable}
+
                                     >
                                         <Column width={200} fixed>
                                             <HeaderCell>Name </HeaderCell>
@@ -111,11 +106,11 @@ class TableToDo extends React.Component {
                                         <Column width={120} fixed="right">
                                             <HeaderCell>Action</HeaderCell>
                                             <Cell>
-                                                {rowData => {
+                                                {(rowData, index) => {
                                                     return (
                                                         <span>
-                                                            <a onClick={this.props.clickEdit}> Edit </a>|
-                                                            <a onClick={this.props.deleteData}> Remove </a>
+                                                            <a onClick={() => this.handleAction(index)}> Edit </a>|
+                                                            <a onClick={() => this.deleteValue(index)}> Remove </a>
                                                         </span>
                                                     );
                                                 }}
@@ -126,47 +121,7 @@ class TableToDo extends React.Component {
                             </Container>
                         </div>
 
-                        {/* <div id="menu">
-                            <div id="tieuDe">Data List</div>
-                            <button type="submit" className="add" onClick={this.props.moForm}>Add  New</button>
-                            {hiddenOpen && <button type="submit" className="open" onClick={this.props.openTrashCan}>Open TrashCan</button>}
-                            {hiddenOpen && <Field
-                                id="timkiem"
-                                name="search"
-                                component="input"
-                                type="text"
-                                placeholder="search"
-                            />}
 
-                            {hiddenOpen && <button type="submit" className="buttonTimkiem" >
-                                Search
-                            </button>}
-                        </div>
-                        <div id="thongtin">
-                            <table id="idTable" cellPadding={20} border={0}>
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            {hiddenOpen && <input type="checkbox" onClick={this.props.handleAllChecked} id="all" name="all" value={this.props.allChackbox}></input>}
-                                            {hiddenOpen && <label > All</label>}
-                                        </th>
-                                        <th>Name</th>
-                                        <th>phoneNumber</th>
-                                        <th>Company</th>
-                                        <th>Position</th>
-                                        <th>Age</th>
-                                        {hiddenOpen && <th width="60px">Delete</th>}
-                                        {hiddenOpen && <th width="60px" >Edit</th>}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {aa}
-                                    {hiddenOpen && <button type="submit" className="deleteAll" onClick={this.props.deleteAll}>Delete All</button>}
-
-
-                                </tbody>
-                            </table>
-                        </div> */}
 
                     </Form>
                 )

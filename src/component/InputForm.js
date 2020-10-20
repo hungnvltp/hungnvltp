@@ -16,7 +16,7 @@ class InputForm extends Component {
         else return null;
     }
     render() {
-        let { index1 } = this.props;
+        let { index } = this.props;
         let product = this.state.product
 
         return (
@@ -38,6 +38,7 @@ class InputForm extends Component {
                             </Navbar.Body>
                         </Navbar>
                         <FormGroup className="textInput">
+
                             <ControlLabel>First Name :</ControlLabel>
                             <Input placeholder="Name" name="name" type="text" value={product.name} onChange={(value, e) => this.props.handleFormChange(value, e)} />
                             <ControlLabel>Phone Number :</ControlLabel>
@@ -52,7 +53,7 @@ class InputForm extends Component {
                         <FormGroup>
                             <ButtonToolbar>
                                 <Button type="submit" appearance="primary">
-                                    {(index1 || index1 === 0) ? "Upadate" : "Submit"}
+                                    {(index || index === 0) ? "Upadate" : "Submit"}
                                 </Button>
                                 <Button type="button" appearance="primary" onClick={form.reset}>
                                     Resset
@@ -65,72 +66,7 @@ class InputForm extends Component {
 
             />
 
-            // <Form
-            //     onSubmit={this.props.onSubmit}
-            //     initialValues={product}
-            //     render={({ handleSubmit, form, }) => (
-            //         <form onSubmit={handleSubmit}>
-            //             <label id="formTitle">Form</label><br></br>
-            //             <a href="!#" id="deleteForm" onClick={this.props.deteleForm}>X</a>
-            //             <div id="firstName">
-            //                 <label className="textInput">First Name :</label><br></br>
-            //                 <Field
-            //                     className="textInput"
-            //                     name="name"
-            //                     component="input"
-            //                     type="text"
-            //                 />
-            //             </div>
-            //             <div>
-            //                 <label className="textInput">Phone Number :</label><br></br>
-            //                 <Field
-            //                     className="textInput"
-            //                     name="phoneNumber"
-            //                     component="input"
-            //                     type="text"
-            //                 />
-            //             </div>
-            //             <div>
-            //                 <label className="textInput">Company :</label><br></br>
-            //                 <Field
-            //                     className="textInput"
-            //                     name="company"
-            //                     component="input"
-            //                     type="text"
-            //                 />
-            //             </div>
-            //             <div>
-            //                 <label className="textInput">Position :</label><br></br>
-            //                 <Field
-            //                     className="textInput"
-            //                     name="positon"
-            //                     component="input"
-            //                     type="text"
-            //                 />
-            //             </div>
-            //             <div>
-            //                 <label className="textInput">Age :</label><br></br>
-            //                 <Field
-            //                     className="textInput"
-            //                     name="age"
-            //                     component="input"
-            //                     type="text"
-            //                 />
-            //             </div>
-            //             <div className="buttons">
-            //                 <button type="submit"  >
-            //                     {(index1 || index1 === 0) ? "Upadate" : "Submit"}
-            //                 </button>
-            //                 <button id="ddd"
-            //                     type="button"
-            //                     onClick={form.reset}
-            //                 >
-            //                     Reset
-            //            </button>
-            //             </div>
-            //         </form>
-            //     )}
-            // />
+
 
 
         );

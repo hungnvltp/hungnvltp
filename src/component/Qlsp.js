@@ -30,9 +30,8 @@ class Qlsp extends React.Component {
     }
 
     clickEdit = (index) => {
-
-        this.index1 = index;
         console.log("index", index)
+        this.index = index
         this.setState({
             hiddenOpen: false,
             formDangNhap: true,
@@ -43,17 +42,16 @@ class Qlsp extends React.Component {
     deleteData = (index) => {
         let dataTrashcan = this.state;
         const dataTable = this.state.dataTable;
-        console.log(222222, index, 1)
         dataTrashcan = [...this.state.dataTrashcan, dataTable[index]];
         dataTable.splice(index, 1)
-        this.index1 = index;
+        this.index = index;
         this.setState({
             dataTrashcan,
             dataTable,
             trashCan: true,
         })
     }
-    deleteForm = (e) => {
+    deleteForm = () => {
 
         this.setState({
             formDangNhap: false
@@ -71,6 +69,7 @@ class Qlsp extends React.Component {
         })
     }
     restoreData = (index) => {
+        console.log(index)
         let dataTable = this.state.dataTable
         let dataTrashcan = this.state.dataTrashcan;
         dataTable.splice(this.index1, 0, this.state.dataTrashcan[index])
@@ -156,14 +155,13 @@ class Qlsp extends React.Component {
         })
     }
     onSubmit = e => {
-
         let { dataTable, product } = this.state
         console.log(product)
-        if ((this.index1 || this.index1 === 0)) {
-            dataTable[this.index1] = product
+        if ((this.index || this.index === 0)) {
+            dataTable[this.index] = product
             this.setState({
                 formDangNhap: false,
-                dataTable: this.state.dataTable,
+                dataTable,
                 hiddenOpen: true,
                 product: {
                     name: "", company: "", phoneNumber: "", positon: "", age: ""
@@ -182,67 +180,46 @@ class Qlsp extends React.Component {
         }
     }
 
-    fitterData = (values) => {
+    fitterData = () => {
+        let result = this.state.result
+        console.log("giá trị", result)
 
-        let { dataTable } = this.state;
-        let sourceArray = dataTable;
-        let newArray = [];
-        var searchValues = values.search || "";
-        if (searchValues.length == 0) {
-            newArray = sourceArray;
-        }
-        else {
-            searchValues.toLowerCase();
-            for (let item of sourceArray) {
-                item.name = item.name;
-                item.phoneNumber = item.phoneNumber;
-                item.positon = item.positon;
-                item.company = item.company;
-                item.age = item.age;
-                if ((item.name.toLowerCase().indexOf(searchValues) > -1)
-                    || (item.phoneNumber.toLowerCase().indexOf(searchValues) > -1)
-                    || (item.positon.toLowerCase().indexOf(searchValues) > -1)
-                    || (item.company.toLowerCase().indexOf(searchValues) > -1)
-                    || (item.age.toLowerCase().indexOf(searchValues) > -1)) {
-                    newArray.push(item);
-                }
-            }
-        }
-        if (newArray = []) {
-            console.log("không có dữ liệu nào")
-        }
-        this.setState({
-            dataTable: newArray
-        });
 
     }
     handleFormChange = (value, e) => {
-
-
-
         let product = this.state.product;
         product[e.target.name] = e.target.value;
         this.setState({ product })
     }
+    chanFilter = (value, e) => {
+        console.log("e.tagert.name", e.target.value)
+        this.setState(
+            {
+                result: e.target.value
+            }
+        )
+    }
     render() {
 
         let { product, dataTable, deleteOne, allChackbox, trashCan, dataTrashcan, formDangNhap,
-            fitterData, dataCheckbox, hiddenOpen, } = this.state;
+            fitterData, dataCheckbox, hiddenOpen, result } = this.state;
+        console.log("result", result)
         return (
             <div className="App">
                 { formDangNhap && <InputFrorm
                     onSubmit={this.onSubmit}
-                    index1={this.index1}
+                    index={this.index}
                     clickEdit={this.clickEdit}
                     clickUpdate={this.clickUpdate}
                     handleSubmit={this.handleSubmit}
                     product={product}
                     deteleForm={this.deleteForm}
                     handleFormChange={this.handleFormChange}
+                    valueId={this.valueId}
                 />}
                 <TableToDo
                     clickEdit={this.clickEdit}
-                    fitterData={fitterData}
+                    fitterData={this.fitterData}
                     dataTable={dataTable}
                     moForm={this.moForm}
                     deleteData={this.deleteData}
@@ -256,6 +233,8 @@ class Qlsp extends React.Component {
                     dataCheckbox={dataCheckbox}
                     hiddenOpen={hiddenOpen}
                     fitterData={this.fitterData}
+                    result={result}
+                    chanFilter={this.chanFilter}
                 />
                 {trashCan && <Trashcan
                     dataTrashcan={dataTrashcan}
