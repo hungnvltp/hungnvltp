@@ -98,11 +98,11 @@ class Qlsp extends React.Component {
             trashCan: true
         })
     }
-    handleAllChecked = ( e) => {
+    handleAllChecked = (e) => {
         let { checkCheckbox, dataTable, dataCheckbox } = this.state;
         console.log("e.target.checked", e.target.checked)
         console.log("dataCheckbox", dataCheckbox)
-        
+
         if (e.target.checked) {
             dataTable.forEach(element => {
                 dataCheckbox.push(dataCheckbox.length)
@@ -122,7 +122,7 @@ class Qlsp extends React.Component {
     handleOneChecked = (index, e) => {
         let { dataCheckbox, checkCheckbox } = this.state
         this.index = index;
-        console.log("index", this.index)
+        console.log("index", index)
         // checkCheckbox = e.target.checked;
         // if (checkCheckbox === true) {
         //     dataCheckbox.push(index);

@@ -1,8 +1,23 @@
 import React, { } from 'react';
 import { Form as FormValue123, Field } from 'react-final-form'
 import 'rsuite/dist/styles/rsuite-default.css';
-import { Form, Button, Container, Header, Navbar, Nav, Icon, Content, InputGroup, Table, Input } from 'rsuite';
-const { Column, HeaderCell, Cell, } = Table;
+import {
+    Form, Button, Container, Header, Navbar, Nav, Icon, Content, InputGroup, Table, Input,
+    Checkbox,
+} from 'rsuite';
+const { Column, HeaderCell, Cell } = Table;
+const CheckCell = ({ rowData, onChange, checkedKeys, dataKey, ...props }) => (
+    <Cell {...props} style={{ padding: 0 }}>
+        <div style={{ lineHeight: '46px' }}>
+            <Checkbox
+                value={rowData[dataKey]}
+                inline
+                onChange={onChange}
+                checked={checkedKeys.some(item => item === rowData[dataKey])}
+            />
+        </div>
+    </Cell>
+);
 class TableToDo extends React.Component {
     constructor(props) {
         super(props);
@@ -38,12 +53,19 @@ class TableToDo extends React.Component {
     fitterData = () => {
         this.props.fitterData()
     }
+    handleCheckAll(value, checked) {
+
+    }
+    handleCheck = () => {
+
+    }
 
     render() {
-        let result = this.state.result;
+        let checked = false;
+        let indeterminate = false;
         let { dataCheckbox } = this.props
+        let checkedKeys = [];
         return (
-
             < FormValue123
                 onSubmit={this.onSubmit}
                 initialValues={{}
@@ -80,18 +102,26 @@ class TableToDo extends React.Component {
                                     <Table
                                         height={400}
                                         data={this.state.dataTable}
-
                                     >
-                                        <Column width={200} fixed>
-                                            <HeaderCell>
-                                                <input type="checkbox" onClick={(index, e) => this.props.handleAllChecked(index, e)} id="all" name="all" value={this.props.allChackbox}></input>
-                                                <button type="button" className="deleteAll" onClick={this.props.deleteAll}>  Delete All</button>
+                                        <Column width={50} align="center">
+                                            <HeaderCell style={{ padding: 0 }}>
+                                                <div style={{ lineHeight: '40px' }}>
+                                                    <Checkbox
+                                                        inline
+                                                        checked={checked}
+                                                        indeterminate={indeterminate}
+                                                        onChange={this.handleCheckAll}
+                                                    />
+                                                </div>
                                             </HeaderCell>
-                                            <Cell  >
-                                                <input type="checkbox" onClick={(index, e) => this.props.handleOneChecked(this.index, e)} id="oneLine" name="oneLine" value={this.props.deleteOne} ></input>
-                                            </Cell>
+                                            <CheckCell
+                                                dataKey="id"
+                                                checkedKeys={checkedKeys}
+                                                onChange={this.handleCheck}
+                                            />
                                         </Column>
-                                        <Column width={200} fixed>
+
+                                        <Column width={200} >
                                             <HeaderCell>Name </HeaderCell>
                                             <Cell dataKey="name" />
                                         </Column>
