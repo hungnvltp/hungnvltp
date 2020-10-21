@@ -41,6 +41,7 @@ class TableToDo extends React.Component {
 
     render() {
         let result = this.state.result;
+        let { dataCheckbox } = this.props
         return (
 
             < FormValue123
@@ -82,6 +83,15 @@ class TableToDo extends React.Component {
 
                                     >
                                         <Column width={200} fixed>
+                                            <HeaderCell>
+                                                <input type="checkbox" onClick={(index, e) => this.props.handleAllChecked(index, e)} id="all" name="all" value={this.props.allChackbox}></input>
+                                                <button type="button" className="deleteAll" onClick={this.props.deleteAll}>  Delete All</button>
+                                            </HeaderCell>
+                                            <Cell  >
+                                                <input type="checkbox" onClick={(index, e) => this.props.handleOneChecked(index, e)} id="oneLine" name="oneLine" value={this.props.deleteOne} ></input>
+                                            </Cell>
+                                        </Column>
+                                        <Column width={200} fixed>
                                             <HeaderCell>Name </HeaderCell>
                                             <Cell dataKey="name" />
                                         </Column>
@@ -114,13 +124,11 @@ class TableToDo extends React.Component {
                                                 }}
                                             </Cell>
                                         </Column>
+
                                     </Table>
                                 </Content>
                             </Container>
                         </div>
-
-
-
                     </Form>
                 )
                 }

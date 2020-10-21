@@ -16,9 +16,9 @@ class InputForm extends Component {
         else return null;
     }
     render() {
-        let { index } = this.props;
+        let index = this.props.index;
         let product = this.state.product
-
+        console.log("index", index)
         return (
             <FormInput
                 onSubmit={this.props.onSubmit}

@@ -59,13 +59,15 @@ class Qlsp extends React.Component {
     }
     moForm = () => {
 
-        this.index1 = ""
+        this.index = ""
         this.setState({
             formDangNhap: true,
             product: {
                 name: "", company: "", phoneNumber: "", positon: "", age: ""
             },
-            hiddenOpen: false
+            hiddenOpen: false,
+
+
         })
     }
     restoreData = (index) => {
@@ -96,11 +98,16 @@ class Qlsp extends React.Component {
             trashCan: true
         })
     }
-    handleAllChecked = (e) => {
+    handleAllChecked = ( e) => {
         let { checkCheckbox, dataTable, dataCheckbox } = this.state;
+        console.log("e.target.checked", e.target.checked)
+        console.log("dataCheckbox", dataCheckbox)
+        
         if (e.target.checked) {
             dataTable.forEach(element => {
                 dataCheckbox.push(dataCheckbox.length)
+                console.log("element", element)
+
             });
         } else {
             dataCheckbox = []
@@ -115,17 +122,18 @@ class Qlsp extends React.Component {
     handleOneChecked = (index, e) => {
         let { dataCheckbox, checkCheckbox } = this.state
         this.index = index;
-        checkCheckbox = e.target.checked;
-        if (checkCheckbox === true) {
-            dataCheckbox.push(index);
-        } else {
-            var a = dataCheckbox.findIndex((element) => this.checkCheckbox_2(element, index));
-            dataCheckbox.splice(a, 1);
-        }
-        this.setState({
-            dataCheckbox,
-            checkCheckbox,
-        })
+        console.log("index", this.index)
+        // checkCheckbox = e.target.checked;
+        // if (checkCheckbox === true) {
+        //     dataCheckbox.push(index);
+        // } else {
+        //     var a = dataCheckbox.findIndex((element) => this.checkCheckbox_2(element, index));
+        //     dataCheckbox.splice(a, 1);
+        // }
+        // this.setState({
+        //     dataCheckbox,
+        //     checkCheckbox,
+        // })
     }
     deleteAll = () => {
         let { dataTable, dataCheckbox, allChackbox, dataTrashcan } = this.state;
@@ -239,7 +247,7 @@ class Qlsp extends React.Component {
     render() {
 
         let { product, dataTable, deleteOne, allChackbox, trashCan, dataTrashcan, formDangNhap,
-            fitterData, dataCheckbox, hiddenOpen, result } = this.state;
+            dataCheckbox, hiddenOpen, result } = this.state;
         return (
             <div className="App">
                 { formDangNhap && <InputFrorm
