@@ -88,7 +88,7 @@ class TableToDo extends React.Component {
                                                 <button type="button" className="deleteAll" onClick={this.props.deleteAll}>  Delete All</button>
                                             </HeaderCell>
                                             <Cell  >
-                                                <input type="checkbox" onClick={(index, e) => this.props.handleOneChecked(index, e)} id="oneLine" name="oneLine" value={this.props.deleteOne} ></input>
+                                                <input type="checkbox" onClick={(index, e) => this.props.handleOneChecked(this.index, e)} id="oneLine" name="oneLine" value={this.props.deleteOne} ></input>
                                             </Cell>
                                         </Column>
                                         <Column width={200} fixed>
@@ -115,6 +115,7 @@ class TableToDo extends React.Component {
                                             <HeaderCell>Action</HeaderCell>
                                             <Cell>
                                                 {(rowData, index) => {
+                                                    this.index = index
                                                     return (
                                                         <span>
                                                             <a onClick={() => this.handleAction(index)}> Edit </a>|
