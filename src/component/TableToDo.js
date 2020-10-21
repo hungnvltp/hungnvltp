@@ -7,7 +7,7 @@ class TableToDo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            result: props.result,
+            // result: props.result ,
             formDangNhap: false,
             submit: false,
             update: false,
@@ -17,9 +17,11 @@ class TableToDo extends React.Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log("nextProps.dataTable ", nextProps)
+
         if (nextProps.dataTable !== prevState.dataTable) {
-            return { dataTable: nextProps.dataTable };
+            return {
+                dataTable: nextProps.dataTable,
+            };
         }
         else return null;
 
@@ -38,11 +40,7 @@ class TableToDo extends React.Component {
     }
 
     render() {
-
         let result = this.state.result;
-
-
-
         return (
 
             < FormValue123
@@ -68,7 +66,7 @@ class TableToDo extends React.Component {
                                             </Nav>
                                             <Nav pullRight >
                                                 <InputGroup id="searchData" >
-                                                    <Input value={result} name="result" onChange={(value, e) => this.props.chanFilter(value, e)} />
+                                                    <Input value={this.props.result} name="result" onChange={(value, e) => this.props.chanFilter(value, e)} />
                                                     <InputGroup.Addon>
                                                         <Icon icon="search" onClick={this.fitterData} />
                                                     </InputGroup.Addon>

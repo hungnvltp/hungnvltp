@@ -182,17 +182,54 @@ class Qlsp extends React.Component {
 
     fitterData = () => {
         let result = this.state.result
-        console.log("giá trị", result)
+        let { dataTable } = this.state;
+        let sourceArray = dataTable;
+        let newArray = [];
+        console.log("giá trị", result.length)
+        console.log("sourceArray", sourceArray)
 
-
+        if (result.length == 0) {
+            console.log("result bằng 0")
+            newArray = sourceArray;
+            console.log("sourceArray", sourceArray)
+            console.log("newArray", newArray)
+            dataTable = newArray
+        }
+        else {
+            console.log("result có giá trị ")
+            result.toLowerCase();
+            for (let item of sourceArray) {
+                item.name = item.name;
+                item.phoneNumber = item.phoneNumber;
+                item.positon = item.positon;
+                item.company = item.company;
+                item.age = item.age;
+                if ((item.name.toLowerCase().indexOf(result) > -1)
+                    || (item.phoneNumber.toLowerCase().indexOf(result) > -1)
+                    || (item.positon.toLowerCase().indexOf(result) > -1)
+                    || (item.company.toLowerCase().indexOf(result) > -1)
+                    || (item.age.toLowerCase().indexOf(result) > -1)) {
+                    newArray.push(item);
+                    dataTable = newArray
+                }
+            }
+        }
+        if (newArray = []) {
+            console.log("không có dữ liệu nào")
+        }
+        this.setState({
+            dataTable
+        });
     }
     handleFormChange = (value, e) => {
         let product = this.state.product;
+
         product[e.target.name] = e.target.value;
         this.setState({ product })
     }
     chanFilter = (value, e) => {
-        console.log("e.tagert.name", e.target.value)
+        let result = this.state.result
+
         this.setState(
             {
                 result: e.target.value
@@ -203,7 +240,6 @@ class Qlsp extends React.Component {
 
         let { product, dataTable, deleteOne, allChackbox, trashCan, dataTrashcan, formDangNhap,
             fitterData, dataCheckbox, hiddenOpen, result } = this.state;
-        console.log("result", result)
         return (
             <div className="App">
                 { formDangNhap && <InputFrorm
