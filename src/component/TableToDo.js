@@ -3,17 +3,17 @@ import { Form as FormValue123, Field } from 'react-final-form'
 import 'rsuite/dist/styles/rsuite-default.css';
 import {
     Form, Button, Container, Header, Navbar, Nav, Icon, Content, InputGroup, Table, Input,
-    Checkbox,
+    Checkbox, ButtonToolbar
 } from 'rsuite';
 const { Column, HeaderCell, Cell } = Table;
-const CheckCell = ({ rowData, onChange, checkedKeys, dataKey, ...props }) => (
+const CheckCell = ({ rowData, onChange, dataCheckbox, dataKey, ...props }) => (
     <Cell {...props} style={{ padding: 0 }}>
         <div style={{ lineHeight: '46px' }}>
             <Checkbox
                 value={rowData[dataKey]}
                 inline
                 onChange={onChange}
-                checked={checkedKeys.some(item => item === rowData[dataKey])}
+                checked={dataCheckbox.some(item => item === rowData[dataKey])}
             />
         </div>
     </Cell>
@@ -28,7 +28,10 @@ class TableToDo extends React.Component {
             update: false,
             dataTable: props.dataTable || {},
             oneLine: props.dataTable || {},
+
         }
+        this.handleCheckAll = this.handleCheckAll.bind(this);
+        this.handleCheck = this.handleCheck.bind(this);
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -55,16 +58,38 @@ class TableToDo extends React.Component {
     }
     handleCheckAll(value, checked) {
 
-    }
-    handleCheck = () => {
 
+        let dataTable = this.state.dataTable
+        const dataCheckbox = checked ? dataTable.map(item => item.id) : [];
+
+    }
+    handleCheck(value, checked) {
+        let { dataCheckbox } = this.props;
+        const nextCheckedKeys = checked
+            ? [...dataCheckbox, value]
+            : dataCheckbox.filter(item => item !== value);
+
+        this.setState({
+            dataCheckbox: nextCheckedKeys
+        });
     }
 
     render() {
+        const { dataTable, } = this.state;
+        let { dataCheckbox } = this.props
         let checked = false;
         let indeterminate = false;
-        let { dataCheckbox } = this.props
-        let checkedKeys = [];
+
+        if (dataCheckbox.length === dataTable.length) {
+            console.log(1)
+            checked = true;
+        } else if (dataCheckbox.length === 0) {
+            console.log(2)
+            checked = false;
+        } else if (dataCheckbox.length > 0 && dataCheckbox.length < dataTable.length) {
+            console.log(3)
+            indeterminate = true;
+        }
         return (
             < FormValue123
                 onSubmit={this.onSubmit}
@@ -86,7 +111,10 @@ class TableToDo extends React.Component {
                                                 <Nav.Item icon={<Icon icon="trash2" />} onClick={this.props.openTrashCan} >
                                                     Trashcan
                                                 </Nav.Item>
+
+
                                             </Nav>
+
                                             <Nav pullRight >
                                                 <InputGroup id="searchData" >
                                                     <Input value={this.props.result} name="result" onChange={(value, e) => this.props.chanFilter(value, e)} />
@@ -100,48 +128,52 @@ class TableToDo extends React.Component {
                                 </Header>
                                 <Content>
                                     <Table
-                                        height={400}
+
+                                        height={300}
                                         data={this.state.dataTable}
                                     >
-                                        <Column width={50} align="center">
+                                        <Column width={50} height={100} align="center">
                                             <HeaderCell style={{ padding: 0 }}>
-                                                <div style={{ lineHeight: '40px' }}>
+                                                <div style={{ lineHeight: '60px' }}>
                                                     <Checkbox
                                                         inline
                                                         checked={checked}
                                                         indeterminate={indeterminate}
                                                         onChange={this.handleCheckAll}
+                                                      
                                                     />
                                                 </div>
                                             </HeaderCell>
+
+
                                             <CheckCell
                                                 dataKey="id"
-                                                checkedKeys={checkedKeys}
+                                                dataCheckbox={this.props.dataCheckbox}
                                                 onChange={this.handleCheck}
                                             />
                                         </Column>
 
-                                        <Column width={200} >
+                                        <Column width={200} height={100} >
                                             <HeaderCell>Name </HeaderCell>
                                             <Cell dataKey="name" />
                                         </Column>
-                                        <Column width={200}>
+                                        <Column width={200} height={100}>
                                             <HeaderCell>company</HeaderCell>
                                             <Cell dataKey="company" />
                                         </Column>
-                                        <Column width={200}>
+                                        <Column width={200} height={100}>
                                             <HeaderCell>Phone Number</HeaderCell>
                                             <Cell dataKey="phoneNumber" />
                                         </Column>
-                                        <Column width={200}>
+                                        <Column width={200} height={100}>
                                             <HeaderCell>Position </HeaderCell>
                                             <Cell dataKey="positon" />
                                         </Column>
-                                        <Column width={200}>
+                                        <Column width={200} height={100}>
                                             <HeaderCell>age</HeaderCell>
                                             <Cell dataKey="age" />
                                         </Column>
-                                        <Column width={120} fixed="right">
+                                        <Column width={120} height={100} fixed="right">
                                             <HeaderCell>Action</HeaderCell>
                                             <Cell>
                                                 {(rowData, index) => {
@@ -157,6 +189,14 @@ class TableToDo extends React.Component {
                                         </Column>
 
                                     </Table>
+
+                                    <ButtonToolbar>
+                                        <Button type="submit" appearance="primary" onClick={this.props.deleteAll}>
+                                            Delete All
+                                          </Button>
+
+                                    </ButtonToolbar>
+
                                 </Content>
                             </Container>
                         </div>

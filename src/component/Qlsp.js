@@ -98,29 +98,32 @@ class Qlsp extends React.Component {
             trashCan: true
         })
     }
-    handleAllChecked = (e) => {
-        let { checkCheckbox, dataTable, dataCheckbox } = this.state;
-        console.log("e.target.checked", e.target.checked)
-        console.log("dataCheckbox", dataCheckbox)
+    handleAllChecked = (e, id, index) => {
+        console.log("chọn tất cả ")
+        console.log("dataCheckbox", this.state.dataCheckbox)
+        // let { checkCheckbox, dataTable, dataCheckbox } = this.state;
 
-        if (e.target.checked) {
-            dataTable.forEach(element => {
-                dataCheckbox.push(dataCheckbox.length)
-                console.log("element", element)
 
-            });
-        } else {
-            dataCheckbox = []
-        }
-        this.setState({
-            dataCheckbox,
-        })
+        // if (e.target.checked) {
+        //     dataTable.forEach(element => {
+        //         dataCheckbox.push(dataCheckbox.length)
+        //         console.log("element", element)
+
+        //     });
+        // } else {
+        //     dataCheckbox = []
+        // }
+        // this.setState({
+        //     dataCheckbox,
+        // })
     }
     checkCheckbox_2 = (el, index) => {
         return el === index;
     }
     handleOneChecked = (index, e) => {
         let { dataCheckbox, checkCheckbox } = this.state
+
+
         this.index = index;
         console.log("index", index)
         // checkCheckbox = e.target.checked;
@@ -137,7 +140,9 @@ class Qlsp extends React.Component {
     }
     deleteAll = () => {
         let { dataTable, dataCheckbox, allChackbox, dataTrashcan } = this.state;
+        console.log("dataCheckbox", dataCheckbox)
         if (this.state.checkCheckbox === true) {
+            console.log("vào if")
             dataCheckbox = dataCheckbox.sort((a, b) => b - a);
             dataCheckbox.forEach(element => {
                 dataTrashcan.push(dataTable[element]);
@@ -145,6 +150,7 @@ class Qlsp extends React.Component {
             })
         }
         else if (allChackbox) {
+            console.log("vào else")
             dataCheckbox.forEach(element => {
                 dataTrashcan.push(dataTable[element]);
             })
